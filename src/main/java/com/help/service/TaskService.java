@@ -9,6 +9,7 @@ public interface TaskService {
     List<Task> selectAll();
     List<Task> selectByName(String name);
     int delete(int id);
+    int cancel(int id);
     int updateById(int id, String name);
     List<Task> selectByStatus();
 }

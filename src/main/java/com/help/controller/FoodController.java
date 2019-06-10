@@ -21,6 +21,13 @@ public class FoodController {
     @Autowired
     private FoodService foodService;
 
+    /**
+     * 新增外卖任务
+     *
+     * @param food
+     * @param request
+     * @return
+     */
     @PostMapping("/")
     public String insert(@RequestBody Food food, HttpServletRequest request){
         String name = (String) request.getAttribute("username");
@@ -31,7 +38,7 @@ public class FoodController {
         task.setPubUser(name);
         task.setStatus(0);
         task.setSubUser("");
-        task.setTime(new Timestamp(System.currentTimeMillis()));
+        task.setTimer(new Timestamp(System.currentTimeMillis()));
         return taskService.insert(task) != null ? "success" : "error";
     }
 

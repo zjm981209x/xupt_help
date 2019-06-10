@@ -21,6 +21,13 @@ public class ExpressController {
     @Autowired
     private TaskService taskService;
 
+    /**
+     * 添加快递信息
+     *
+     * @param express
+     * @param request
+     * @return
+     */
     @PostMapping("/")
     public String insert(@RequestBody Express express, HttpServletRequest request){
         String name = (String) request.getAttribute("username");
@@ -31,7 +38,7 @@ public class ExpressController {
         task.setStatus(0);
         task.setPubUser(name);
         task.setSubUser("");
-        task.setTime(new Timestamp(System.currentTimeMillis()));
+        task.setTimer(new Timestamp(System.currentTimeMillis()));
         return taskService.insert(task) != null ? "success" : "error";
     }
 

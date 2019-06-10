@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.help.dao.TaskDao">
     <insert id="insert" keyProperty="taskId" useGeneratedKeys="true">
-        insert into task(type,pub_user,sub_user,type_id,status,time) values (#{type},
-        #{pubUser},#{subUser},#{typeId},#{status},#{time})
+        insert into task(type,pub_user,sub_user,type_id,status,timer) values (#{type},
+        #{pubUser},#{subUser},#{typeId},#{status},#{timer})
     </insert>
 
     <select id="selectAll" resultType="task">
@@ -27,4 +27,8 @@
     <select id="selectByName" resultType="task">
         select * from task where pub_user = #{name} or sub_user = #{name}
     </select>
+    
+    <update id="cancel">
+        update task set status = -1 where task_id = #{id}
+    </update>
 </mapper> 

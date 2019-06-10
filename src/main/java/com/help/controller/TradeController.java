@@ -25,6 +25,14 @@ public class TradeController {
     @Autowired
     private TaskService taskService;
 
+    /**
+     * 添加交易信息
+     *
+     * @param trade
+     * @param file
+     * @param request
+     * @return
+     */
     @PostMapping("/")
     public String insert(Trade trade,
                          @RequestParam("file") MultipartFile file,
@@ -46,9 +54,15 @@ public class TradeController {
         task.setStatus(0);
         task.setPubUser(name);
         task.setTypeId(result.getTradeId());
-        task.setTime(new Timestamp(System.currentTimeMillis()));
+        task.setTimer(new Timestamp(System.currentTimeMillis()));
         task.setSubUser("");
         return taskService.insert(task) != null ? "success" : "error";
+    }
+
+
+    @PostMapping("/empty")
+    public String empty(){
+        return "success";
     }
 
     @GetMapping("/{id}")

@@ -15,5 +15,6 @@ public interface TaskDao {
     List<Task> selectByStatus();
     List<Task> selectByName(String name);
     int delete(int id);
+    int cancel(int id);
     int updateById(@Param("id") int id, @Param("name") String name);
 }

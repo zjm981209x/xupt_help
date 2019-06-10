@@ -36,6 +36,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public int cancel(int id) {
+        return taskDao.cancel(id);
+    }
+
+    @Override
     public int updateById(int id, String name) {
         return taskDao.updateById(id,name);
     }

@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.help.dao.TradeDao">
     <insert id="insert" keyProperty="tradeId" useGeneratedKeys="true">
-        insert into trade(title,content,old_price,new_price,image) values(#{title},
-        #{content},#{oldPrice},#{newPrice},#{image})
+        insert into trade(title,content,old_price,new_price,image,phone) values(#{title},
+        #{content},#{oldPrice},#{newPrice},#{image},#{phone})
     </insert>
     
     <select id="selectAll" resultType="trade">
