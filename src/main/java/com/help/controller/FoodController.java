@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * 外卖
+ */
 @RestController
 @RequestMapping("/food")
 public class FoodController {
@@ -42,16 +45,33 @@ public class FoodController {
         return taskService.insert(task) != null ? "success" : "error";
     }
 
+    /**
+     * 获取所有外卖信息
+     *
+     * @return
+     */
     @GetMapping("/")
     public List<Food> selectAll(){
         return foodService.selectAll();
     }
 
+    /**
+     * 传入外卖id获取信息
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Food selectById(@PathVariable int id){
         return foodService.selectById(id);
     }
 
+    /**
+     * 删除外卖信息
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable int id){
         return foodService.deleteById(id) == 1 ? "success" : "error";

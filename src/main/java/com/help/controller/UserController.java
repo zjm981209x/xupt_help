@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 用户
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -25,30 +28,17 @@ public class UserController {
     private MailService mailService;
 
     /**
-     * 完善个人信息
+     * 修改个人信息
      *
      * @param user
-     * @param file
      * @param request
      * @return
      */
     @PutMapping("/")
-    public String update(User user,
-                         @RequestParam("file") MultipartFile file,
-                         HttpServletRequest request){
+    public String update(User user, HttpServletRequest request){
         String name = (String)request.getAttribute("username");
         User tmp = userService.selectByName(name);
         user.setUserId(tmp.getUserId());
-        if(!file.isEmpty()){
-            String filename = file.getOriginalFilename();
-            String path = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/";
-            user.setImage(filename);
-            try {
-                FileUtil.upload(file.getBytes(),path,filename);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         if(!user.getEmail().isEmpty()){
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
@@ -59,6 +49,31 @@ public class UserController {
             });
         }
         return userService.update(user) == 1 ? "success" : "error";
+    }
+
+    /**
+     * 修改头像
+     *
+     * @param file
+     * @param request
+     * @return
+     */
+    @PostMapping("/")
+    public String updateImage(@RequestParam("file") MultipartFile file,
+                              HttpServletRequest request){
+        String name = (String)request.getAttribute("username");
+        String result = "error";
+        if(!file.isEmpty()){
+            String filename = file.getOriginalFilename();
+            String path = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/";
+            result = userService.updateByName(name,filename) == 1 ? "success" : "error";
+            try {
+                FileUtil.upload(file.getBytes(),path,filename);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
     /**

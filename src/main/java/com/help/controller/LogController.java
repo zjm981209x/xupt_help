@@ -29,10 +29,6 @@ public class LogController {
             User tmp = new User();
             tmp.setUserName(username);
             tmp.setUserPw(password);
-            tmp.setPhone("");
-            tmp.setNickName("");
-            tmp.setEmail("");
-            tmp.setImage("");
             return userService.insert(tmp) != null ? "success" : "error";
         }
     }

@@ -46,7 +46,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> selectByStatus() {
-        return taskDao.selectByStatus();
+    public List<Task> selectByStatus(int status) {
+        return taskDao.selectByStatus(status);
+    }
+
+    @Override
+    public Task selectById(int id) {
+        return taskDao.selectById(id);
     }
 }

@@ -11,5 +11,6 @@ public interface TaskService {
     int delete(int id);
     int cancel(int id);
     int updateById(int id, String name);
-    List<Task> selectByStatus();
+    List<Task> selectByStatus(int status);
+    Task selectById(int id);
 }

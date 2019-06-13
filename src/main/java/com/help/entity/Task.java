@@ -32,7 +32,7 @@ public class Task {
     private int typeId;
     /**
      * 任务状态
-     * default(-1)  0未接受   1已接受
+     * default(-1)  0未接受   1已接受  2完成  3下架
      */
     private int status;
     /**

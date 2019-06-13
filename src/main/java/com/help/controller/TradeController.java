@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * 交易
+ */
 @RestController
 @RequestMapping("trade")
 public class TradeController {
@@ -51,7 +54,7 @@ public class TradeController {
         Trade result = tradeServcie.insert(trade);
         Task task = new Task();
         task.setType("trade");
-        task.setStatus(0);
+        task.setStatus(-1);
         task.setPubUser(name);
         task.setTypeId(result.getTradeId());
         task.setTimer(new Timestamp(System.currentTimeMillis()));
@@ -59,25 +62,44 @@ public class TradeController {
         return taskService.insert(task) != null ? "success" : "error";
     }
 
-
-    @PostMapping("/empty")
-    public String empty(){
-        return "success";
-    }
-
+    /**
+     * 传入交易id获取信息
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Trade selectById(@PathVariable int id){
         return tradeServcie.selectById(id);
     }
 
+    /**
+     * 获取所有交易信息
+     *
+     * @return
+     */
     @GetMapping("/")
     public List<Trade> selectAll(){
         return tradeServcie.selectAll();
     }
 
+    /**
+     * 删除交易信息
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable int id){
         return tradeServcie.deleteById(id) == 1 ? "success" : "error";
     }
 
+    /**
+     *
+     * @return
+     */
+    @PostMapping("/empty")
+    public String empty(){
+        return "success";
+    }
 }

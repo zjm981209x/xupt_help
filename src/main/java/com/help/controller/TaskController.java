@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
+/**
+ * 任务
+ */
 @RestController
 @RequestMapping("/task")
 public class TaskController {
@@ -30,7 +31,7 @@ public class TaskController {
     private TradeServcie tradeServcie;
 
     /**
-     *  添加领取任务者
+     * 领取任务
      *
      * @param id
      * @param request
@@ -47,9 +48,9 @@ public class TaskController {
      *
      * @return Map<String,Object>
      */
-    @GetMapping("/status")
-    public List<Map> selectByStatus() {
-        List<Task> list = taskService.selectByStatus();
+    @GetMapping("/{id}")
+    public List selectByStatus(@PathVariable int id) {
+        List<Task> list = taskService.selectByStatus(id);
         return getResult(list);
     }
 
@@ -60,14 +61,14 @@ public class TaskController {
      * @return List<Map>
      */
     @GetMapping("/name")
-    public List<Map> selectByName(HttpServletRequest request){
+    public List selectByName(HttpServletRequest request){
         String name = (String) request.getAttribute("username");
         List<Task> list = taskService.selectByName(name);
         return getResult(list);
     }
 
     /**
-     * 任务完成
+     * 确认完成任务
      *
      * @param id
      * @return
@@ -78,7 +79,7 @@ public class TaskController {
     }
 
     /**
-     * 取消任务
+     * 撤消任务
      *
      * @param id
      * @return
@@ -123,8 +124,6 @@ public class TaskController {
         }
         return results;
     }
-
-
 
     /*public List<Map> getResult(List<Task> list) {
         List<Map> result = new ArrayList<>();

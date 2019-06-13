@@ -21,14 +21,19 @@
     </update>
     
     <select id="selectByStatus" resultType="task">
-        select * from task where status = 0
+        select * from task where status = #{status}
     </select>
     
     <select id="selectByName" resultType="task">
-        select * from task where pub_user = #{name} or sub_user = #{name}
+        select * from task where status != 3 and pub_user = #{name} or sub_user = #{name}
+    </select>
+    
+    <select id="selectById" resultType="task">
+        select * from task where task_id = #{id}
     </select>
     
     <update id="cancel">
-        update task set status = -1 where task_id = #{id}
+        update task set status = 3 where task_id = #{id}
     </update>
+
 </mapper> 

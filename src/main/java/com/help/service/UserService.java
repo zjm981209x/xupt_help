@@ -6,4 +6,5 @@ public interface UserService {
     User insert(User user);
     User selectByName(String name);
     int update(User user);
+    int updateByName(String name, String image);
 }
